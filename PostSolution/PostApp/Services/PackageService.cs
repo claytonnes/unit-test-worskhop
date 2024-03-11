@@ -5,21 +5,24 @@ namespace PostApp.Services
 {
     public class PackageService
     {
-        private readonly IMailManRepository _mailManRepository;
-        private readonly ILostMailRepository _lostMailRepository;
+        private readonly IPackageSenderRepository _packageSenderRepository;
+        private readonly ILostPackageRepository _lostMailRepository;
         private readonly ILoggerService _loggerService;
+        private readonly IPackageCalculationService _packageCalculationService;
 
         public PackageService(
-            IMailManRepository mailManRepository,
-            ILostMailRepository lostMailRepository, 
+            IPackageSenderRepository packageSenderRepository,
+            ILostPackageRepository lostMailRepository, 
+            IPackageCalculationService packageCalculationService,
             ILoggerService loggerService)
         {
-            _mailManRepository = mailManRepository;
+            _packageSenderRepository = packageSenderRepository;
             _lostMailRepository = lostMailRepository;
             _loggerService = loggerService;
+            _packageCalculationService = packageCalculationService;
         }
 
-        public string HandleIncomingPackages(List<Package> packages)
+        public string HandleIncomingPackage(Package packages)
         {
             return "";
         }

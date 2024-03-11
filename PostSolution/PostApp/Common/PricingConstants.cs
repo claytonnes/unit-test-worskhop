@@ -11,6 +11,6 @@ namespace PostApp.Common
     {
         public const int StartingFee = 22;
         public const int MinimumForeignAddition = 31;
-        public const double ForeignAdditionPercentage = 1.5;
+        public const double ForeignAdditionGramRatio = 0.015;
     }
 }

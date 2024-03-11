@@ -1,21 +1,22 @@
 ﻿using PostApp.Common;
+using PostApp.Models;
 
 
 namespace PostApp.Services
 {
-    public class PackageCalculationService
+    public class PackageCalculationService : IPackageCalculationService
     {
         public double CalculateVolume(double lengthInCm, double heightInCm, double widthInCm)
         {
             return lengthInCm * heightInCm * widthInCm;
         }
 
-        public bool IsAbroad(string country)
+        public bool IsAbroad(AddressInformation addressInformation)
         {
-            return country != "SWEDEN";
+            return addressInformation.Country != "SWEDEN";
         }
 
-        public int CalculatePostageRate(int weightInGrams, double lengthInCm, double heightInCm, double widthInCm, bool abroad)
+        public int CalculatePostageFee(int weightInGrams, double lengthInCm, double heightInCm, double widthInCm, bool abroad)
         {
             ValidateInput(weightInGrams, lengthInCm, heightInCm, widthInCm);
 
@@ -55,7 +56,7 @@ namespace PostApp.Services
 
             if (widthInCm <= 0 || widthInCm > 175)
             {
-                throw new ArgumentException("Height must be over 0 and less than or equal to 175.");
+                throw new ArgumentException("Width must be over 0 and less than or equal to 175.");
             }
         }
 
@@ -64,32 +65,32 @@ namespace PostApp.Services
 
             int cost = 0;
 
-            if (weightInGrams > 100 && weightInGrams <= 500)
+            if (weightInGrams >= 100 && weightInGrams < 500)
             {
                 cost = 33;
             }
 
-            if (weightInGrams > 500 && weightInGrams <= 1000)
+            if (weightInGrams >= 500 && weightInGrams < 1000)
             {
                 cost = 52;
             }
 
-            if (weightInGrams > 1000 && weightInGrams <= 2000)
+            if (weightInGrams > 1000 && weightInGrams < 2000)
             {
                 cost = 78;
             }
 
-            if (weightInGrams > 2000 && weightInGrams < 5000)
+            if (weightInGrams >= 2000 && weightInGrams < 5000)
             {
                 cost = 155;
             }
 
-            if (weightInGrams > 5000 && weightInGrams <= 12500)
+            if (weightInGrams >= 5000 && weightInGrams < 12500)
             {
                 cost = 251;
             }
 
-            if (weightInGrams >= 12500 && weightInGrams <= 25000)
+            if (weightInGrams >= 12500 && weightInGrams < 25000)
             {
                 cost = 373;
             }
@@ -104,7 +105,7 @@ namespace PostApp.Services
                 return 111;
             }
 
-            if (widthInCm >= 125 && widthInCm <= 175)
+            if (widthInCm > 125 && widthInCm <= 175)
             {
                 return 111;
             }
@@ -121,7 +122,7 @@ namespace PostApp.Services
         {
             if (isAbroad)
             {
-                var weightPrice = (int)Math.Round(PricingConstants.ForeignAdditionPercentage * weightInGrams);
+                var weightPrice = (int)Math.Round(PricingConstants.ForeignAdditionGramRatio * weightInGrams);
                 return weightPrice > 31 ? weightPrice : 31;
             }
             return 0;

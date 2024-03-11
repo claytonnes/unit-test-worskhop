@@ -8,5 +8,9 @@ namespace PostApp.Models
 {
     public class AddressInformation
     {
+        public string AddressLine { get; set; }
+        public string PostCode { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
     }
 }

@@ -10,17 +10,12 @@ namespace PostApp.Services
             return lengthInCm * heightInCm * widthInCm;
         }
 
-        public double GetAddedMeasurements(double lengthInCm, double heightInCm, double widthInCm)
-        {
-            return lengthInCm + heightInCm + widthInCm;
-        }
-
         public bool IsAbroad(string country)
         {
             return country != "SWEDEN";
         }
 
-        public int CalculatePostageRate(double weightInGrams, double lengthInCm, double heightInCm, double widthInCm, bool abroad)
+        public int CalculatePostageRate(int weightInGrams, double lengthInCm, double heightInCm, double widthInCm, bool abroad)
         {
             ValidateInput(weightInGrams, lengthInCm, heightInCm, widthInCm);
 
@@ -33,12 +28,15 @@ namespace PostApp.Services
             var measurementPrice = GetMeasurementPrice(lengthInCm, widthInCm, heightInCm);
             total += measurementPrice;
 
+            var abroadPrice = GetAbroadPrice(abroad, weightInGrams);
+            total += abroadPrice;
+
             var reductionRatio = GetTotalPriceReductionRatio(lengthInCm, widthInCm, heightInCm, weightInGrams);
             total = (int)Math.Round(total * reductionRatio);
             return total;
         }
 
-        private void ValidateInput(double weightInGrams, double lengthInCm, double heightInCm, double widthInCm)
+        private void ValidateInput(int weightInGrams, double lengthInCm, double heightInCm, double widthInCm)
         {
             if (weightInGrams <= 0 || weightInGrams > 25000)
             {
@@ -61,7 +59,7 @@ namespace PostApp.Services
             }
         }
 
-        private int GetWeightPrice(double weightInGrams)
+        private int GetWeightPrice(int weightInGrams)
         {
 
             int cost = 0;
@@ -101,18 +99,39 @@ namespace PostApp.Services
 
         private int GetMeasurementPrice(double lengthInCm, double widthInCm, double heightInCm)
         {
-            if(lengthInCm >= 125 &&  lengthInCm <= 175)
+            if (lengthInCm >= 125 && lengthInCm <= 175)
             {
                 return 111;
+            }
+
+            if (widthInCm >= 125 && widthInCm <= 175)
+            {
+                return 111;
+            }
+
+            if (heightInCm >= 125 && heightInCm <= 175)
+            {
+                return 111;
+            }
+
+            return 0;
+        }
+
+        private int GetAbroadPrice(bool isAbroad, int weightInGrams)
+        {
+            if (isAbroad)
+            {
+                var weightPrice = (int)Math.Round(PricingConstants.ForeignAdditionPercentage * weightInGrams);
+                return weightPrice > 31 ? weightPrice : 31;
             }
             return 0;
         }
 
         private double GetTotalPriceReductionRatio(double lengthInCm, double widthInCm, double heightInCm, double weightInGrams)
         {
-            if(weightInGrams > 5000 && lengthInCm == 80 && widthInCm == 60 && heightInCm == 20)
+            if (weightInGrams > 5000 && lengthInCm == 80 && widthInCm == 60 && heightInCm == 20)
             {
-                return 0.85;
+                return 0.875;
             }
 
             return 1;

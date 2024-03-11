@@ -14,7 +14,7 @@ De två tjänsterna som enhetstester ska testas är:
 2. PackageService
 
 Eventuella buggar som identifieras bör även åtgärdas.
-
+-------------------------------------------------------------------------
 ### PackageCalculationService
 Det är av största vikt att portoberäkningen fungerar på korrekt sätt, då den är grunden för ett verktyget som
 postkunder använder för att beräkna vikten på sina paket, och som är grunden för hela postsystemets inkomstssystem.
@@ -38,8 +38,8 @@ Paket som väger över 25kg kan inte skickas med denna tjänst utan måste skickas v
 #### Storlekens påverkan på priset
 Även storleken på paketen kan ha en inverkan på kostnadsberäkningen.
 Om längden, bredden eller höjden faller inom intervallet >= 125cm <= 175cm tillkommer ett drygattfraktatillägg på 111kr.
-Om paketet har exakta måtten 80x60x20cm vilket är PostNörds standardmått på sin populära "svinbralåda"-produkt så kapas 12.5% av totalkostnaden för frakten
-på paket vars vikt är >=5000g.
+Om paketet har exakta måtten 80x60x20cm vilket är PostNörds standardmått på sin populära "svinbralåda"-produkt så tas 12.5% 
+av totalkostnaden bort för frakten på paket vars vikt är >=5000g.
 Paket som har en längd, höjd eller bredd som är större än 175cm kan skickas med denna tjänst, utan måste hanteras via postens fettdrygtpakettjänst.
 Om längd + bredd + höjd överstiger 300cm kan paketet inte skickas med denna tjänst, utan måste hanteras via postens fettdrygtpakettjänst.
 

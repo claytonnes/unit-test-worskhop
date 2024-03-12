@@ -13,15 +13,15 @@ namespace PostApp.Repositories
         /// Tries to deliver a package
         /// </summary>
         /// <param name="package">The package you are tying to send</param>
-        /// <exception cref="DirectoryNotFoundException">Thrown when the post delivery person cannot find a receiver</exception>
-        void SendPackages(Package package);
+        /// <returns>Bool to indicate success. True = success, false = failure</returns>
+        bool SendPackage(Package package);
 
 
         /// <summary>
         /// Tries to return a package to its sender
         /// </summary>
-        /// <param name="package">The package you are tying to return</param><
-        /// <exception cref="DirectoryNotFoundException">Thrown when the post delivery person cannot find a receiver</exception>
-        void ReturnPackage(Package package);
+        /// <param name="package">The package you are tying to return</param>
+        /// <returns>Bool to indicate success. True = success, false = failure</returns>
+        bool ReturnPackage(Package package);
     }
 }

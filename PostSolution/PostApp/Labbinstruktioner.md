@@ -1,6 +1,6 @@
 # Labbinstruktioner 12/3-2024 
 ## PostNörd Systems
-PostNörds system för pakethantering "PostNörd Systems" har efter en större refaktorering av en konsult från det helt fiktiva 
+PostNörds system för pakethantering "PostNörd Systems" har efter en större refaktorering samt en del nyutvekcling av en konsult från det helt fiktiva 
 konsultbolaget Totietoteo Evoverory börjat ha stora problem med sina tjänster.
 Buggar och oförväntade beteenden som tidigare inte förekommit rapporteras nu in dagligen och skapar stor frustration bland kunder och medarbetare
 samt innebär stora kostnader för manuell handläggning av paketskickande.
@@ -40,10 +40,11 @@ Tabell för prisberäkning utifrån vikt:
 Även storleken på paketen kan ha en inverkan på kostnadsberäkningen.
 - Om längden, bredden eller höjden faller inom intervallet >= 125cm <= 175cm tillkommer ett drygattfraktatillägg på 111kr.
 
-- Om paketet har exakta måtten 80x60x20cm vilket är PostNörds standardmått på sin populära "svinbralåda"-produkt så tas 12.5% 
+- Om paketet har måtten 80x60x20cm vilket är PostNörds standardmått på sin populära "svinbralåda"-produkt så tas 12.5% 
 av totalkostnaden bort för frakten på paket vars vikt är >=5000g.
 
 - Paket som har en längd, höjd eller bredd som är större än 175cm kan inte skickas med denna tjänst
+
 - Om längd + bredd + höjd överstiger 300cm kan paketet inte skickas med denna tjänst, utan måste hanteras via postens fettdrygtpakettjänst.
 
 #### Destinationens påverkan på priset
@@ -62,12 +63,22 @@ Dessvärre hann tidigare nämnd konsult inte implementera denna tjänst mer än att 
 Er uppdragsgivare på PostNörd har som krav att ni åtminstone delvis ska använda er av Testdriven utveckling, vilket i princip innebär att ni definierar testfall för det önskade beteendet innan ni implementerar koden.
 
 Önskat beteende:
-- Om ett paket har betalat lika med eller högre porto (PaidPostFee-property på Package-Model) än vad som krävs, ska det försöka skickas iväg.
-- Om ett pakets betalda porto (PaidPostFee-property på Package-Model) understiger värdet som (IPackageCalculation.CalculatePostageRate) beräknas, returnera till avsändaren (IPackageSenderRepository.ReturnPackage)
+- Om ett paket har betalat lika med eller högre porto (PaidPostFee-property på Package-Model) än vad som krävs, 
+ så ska det försöka skickas iväg (IPackageSenderRepository.SendPackage), annars inte.
+
+- Om ett pakets betalda porto (PaidPostFee-property på Package-Model) understiger värdet som (IPackageCalculation.CalculatePostageRate) beräknas,
+returnera paketet till avsändaren (IPackageSenderRepository.ReturnPackage)
+
 - Om ett paket inte lyckas skickas till mottagare, returnera det till sin mottagare (IPackageSenderRepository.ReturnPackage)
+
 - Om ett paket inte kan returneras till sin mottagare, skicka det till "borttappat"-lagring (ILostMailRepository.SendToStorage)
+
 - Om ett paket inte lyckas skickas till borttappat-lagring, kasta ett exception av passande slag
+
 - Varje paket som hanteras ska alltid generera MINST två loggningar (ILoggerService), en LogStart och en LogEnd.
-- Om ett exception fångas ska det loggas (ILoggerService)
+
 - PostNörd framhäver vikten att enbart EN startloggning sker, och vill att ni implementerar ett enhetstest som säkerställer det.
+
+- Om ett exception fångas ska det loggas (ILoggerService)
+
 - En sträng som beskriver slutresultatet av hanteringen ska returners i de fall där ett exception inte kastas.

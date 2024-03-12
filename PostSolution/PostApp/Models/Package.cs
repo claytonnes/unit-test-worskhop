@@ -2,7 +2,7 @@
 {
     public class Package
     {
-        public double WeightInGrams { get; set; }
+        public int WeightInGrams { get; set; }
         public int PaidPostFee { get; set; }
         public Dimensions Dimensions { get; set; }
         public Receiver Receiver { get; set; }

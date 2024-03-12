@@ -14,7 +14,7 @@ namespace PostApp.Repositories
         /// </summary>
         /// <param name="package"></param>
         /// <exception cref="IOException">Sometimes shit goes wrong, OK?</exception>
-        /// <returns></returns>
+        /// <returns>Bool to indicate success. True = success, false = failure</returns>
         bool SendToStorage(Package package);
     }
 }

@@ -43,8 +43,7 @@ Tabell för prisberäkning utifrån vikt:
 - Om paketet har exakta måtten 80x60x20cm vilket är PostNörds standardmått på sin populära "svinbralåda"-produkt så tas 12.5% 
 av totalkostnaden bort för frakten på paket vars vikt är >=5000g.
 
-- Paket som har en längd, höjd eller bredd som är större än 175cm kan inte skickas med denna tjänst.
-- 
+- Paket som har en längd, höjd eller bredd som är större än 175cm kan inte skickas med denna tjänst
 - Om längd + bredd + höjd överstiger 300cm kan paketet inte skickas med denna tjänst, utan måste hanteras via postens fettdrygtpakettjänst.
 
 #### Destinationens påverkan på priset
@@ -63,7 +62,7 @@ Dessvärre hann tidigare nämnd konsult inte implementera denna tjänst mer än att 
 Er uppdragsgivare på PostNörd har som krav att ni åtminstone delvis ska använda er av Testdriven utveckling, vilket i princip innebär att ni definierar testfall för det önskade beteendet innan ni implementerar koden.
 
 Önskat beteende:
-- Om ett paket har betalat lika  med eller högre porto (PaidPostFee-property på Package-Model) än vad som krävs, ska det försöka skickas iväg.
+- Om ett paket har betalat lika med eller högre porto (PaidPostFee-property på Package-Model) än vad som krävs, ska det försöka skickas iväg.
 - Om ett pakets betalda porto (PaidPostFee-property på Package-Model) understiger värdet som (IPackageCalculation.CalculatePostageRate) beräknas, returnera till avsändaren (IPackageSenderRepository.ReturnPackage)
 - Om ett paket inte lyckas skickas till mottagare, returnera det till sin mottagare (IPackageSenderRepository.ReturnPackage)
 - Om ett paket inte kan returneras till sin mottagare, skicka det till "borttappat"-lagring (ILostMailRepository.SendToStorage)

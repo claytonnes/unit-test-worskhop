@@ -20,7 +20,7 @@ namespace PostApp.Common
             return new AddressInformation() { Country = country };
         } 
 
-        public static Package GeneratePackageInstance(Dimensions dimensions)
+        public static Package GeneratePackageInstance(Dimensions dimensions, int fee)
         {
             return new Package()
             {

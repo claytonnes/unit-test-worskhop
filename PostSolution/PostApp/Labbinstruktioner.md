@@ -34,7 +34,7 @@ Tabell för prisberäkning utifrån vikt:
 2000g > vikt <= 5000g = 155kr
 5000g > vikt <= 12500g = 251kr
 12500g > vikt <= 25000g = 373kr
-- Paket som väger över 25kg kan inte skickas med denna tjänst utan måste skickas via postens fettdrygtpakettjänst.
+- Paket som väger över 25kg kan inte skickas med denna tjänst.
 
 #### Storlekens påverkan på priset
 Även storleken på paketen kan ha en inverkan på kostnadsberäkningen.
@@ -69,4 +69,5 @@ Er uppdragsgivare på PostNörd har som krav att ni åtminstone delvis ska använda 
 - Om ett paket inte lyckas skickas till borttappat-lagring, kasta ett exception av passande slag
 - Varje paket som hanteras ska alltid generera MINST två loggningar (ILoggerService), en LogStart och en LogEnd.
 - Om ett exception fångas ska det loggas (ILoggerService)
+- PostNörd framhäver vikten att enbart EN startloggning sker, och vill att ni implementerar ett enhetstest som säkerställer det.
 - En sträng som beskriver slutresultatet av hanteringen ska returners i de fall där ett exception inte kastas.
